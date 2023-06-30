@@ -23,7 +23,7 @@ textarea {
 
 #app {
   color: var(--text-color);
-  background: var(--background-color);
+  // background: var(--background-color);
 }
 
 .flex-center {
@@ -73,5 +73,12 @@ h2 {
       background: lighten(#44AFBB, 10);
     }
   }
+}
+
+.flex-center-100vh {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 </style>

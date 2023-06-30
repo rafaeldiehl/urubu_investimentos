@@ -1,5 +1,5 @@
-CREATE DATABASE 'urubu_do_pix';
-USE 'urubu_do_pix';
+CREATE DATABASE urubu_do_pix;
+USE urubu_do_pix;
 
 -- Tabela de usuários
 CREATE TABLE users (
@@ -44,7 +44,7 @@ VALUES ('João Silva', 'joao.silva@example.com', 'senha123', 1000.00),
        ('Luiza Oliveira', 'luiza.oliveira@example.com', 'senhaxyz', 2500.00);
 
 INSERT INTO credit_cards (user_id, card_number, expiration_date, cvv, card_balance, pin, ninja_name, ninja_clan, ninja_rank)
-VALUES (1, '4532894176918710', '07/2025', '123', 12626.00, 1234, 'Naruto', 'Uzumaki', 'Jonin')
+VALUES (1, '4532894176918710', '07/2025', '123', 12626.00, 1234, 'Naruto', 'Uzumaki', 'Jonin'),
        (1, '4532894176918711', '07/2025', '123', 5335.00, 1234, 'Naruto', 'Uzumaki', 'Jonin'),
        (2, '5370418429237755', '12/2023', '456', 35253.00, 5678, 'Naruto', 'Uzumaki', 'Chunin'),
        (3, '4024007165639577', '09/2024', '789', 323.00, 4321, 'Naruto', 'Uzumaki', 'Genin'),

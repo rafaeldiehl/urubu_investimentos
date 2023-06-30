@@ -25,47 +25,29 @@
       </header>
       <div class="form-wrp flex-center">
         <form action="#">
-          <h3>Entrar com cartão <i class="las la-question-circle"></i></h3>
+          <h3>Entrar com conta <i class="las la-question-circle"></i></h3>
           <div class="field">
-            <label for="cardholder_name">
-              Nome do Titular
+            <label for="email">
+              E-mail
             </label>
             <div class="input-wrp">
               <i class="las la-user"></i>
-              <input name="cardholder_name" type="text" placeholder="Nome do Titular" required />
+              <input name="email" type="email" placeholder="fulano@exemplo.com" required />
             </div>
           </div>
           <div class="field">
-            <label for="card_number">
-              Número do Cartão
+            <label for="password">
+              Senha
             </label>
             <div class="input-wrp">
-              <i class="las la-credit-card"></i>
-              <input type="text" name="card_number" id="card_number" v-model="cardNumber" placeholder="•••• •••• •••• ••••" required />
-            </div>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="expiry_date">
-                Data de Expiração
-              </label>
-              <div class="input-wrp">
-                <i class="las la-hourglass"></i>
-                <input name="expiry_date" type="text" placeholder="mm/aa" required />
-              </div>
-            </div>
-            <div class="field">
-              <label for="cvc">
-                CVC
-              </label>
-              <div class="input-wrp">
-                <i class="las la-lock"></i>
-                <input name="cvc" type="text" placeholder="•••" required />
-              </div>
+              <i class="las la-lock"></i>
+              <input type="password" name="password" id="password" placeholder="•••••••••" required />
             </div>
           </div>
           <div class="field-radio">
-            <div class="checkbox"></div>
+            <div class="checkbox">
+              <i class="las la-check"></i>
+            </div>
             Não li a <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Política de Privacidade</a>, nem os <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Termos de Uso</a>
           </div>
           <button type="submit" class="btn btn-primary">
@@ -95,12 +77,16 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.login-page {
+<style lang="scss">
+body {
   height: 100vh;
   position: relative;
   overflow: hidden;
   background: linear-gradient(to right, #181818, var(--background-color));
+}
+
+.login-page {
+  height: 100vh;
 
   .bg-image {
     position: absolute;
@@ -128,6 +114,18 @@ export default {
   }
 }
 
+.checkbox {
+  width: 15px;
+  height: 15px;
+  background: #9292fc;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  margin-right: 10px;
+}
+
 .form-wrp {
   position: relative;
 
@@ -143,9 +141,12 @@ export default {
   .field-radio {
     font-weight: 200;
     font-size: 15px;
+    display: flex;
+    align-items: center;
 
     a {
       font-weight: 300;
+      margin-left: 5px;
       color: var(--primary-color);
     }
   }
