@@ -1,4 +1,4 @@
-<template>
+<template style="overflow: hidden">
   <div class="login-page flex-center">
     <div class="container flex-center">
       <div class="bg-image">
@@ -24,7 +24,7 @@
         </div>
       </header>
       <div class="form-wrp flex-center">
-        <form action="#">
+        <form @submit.prevent="login">
           <h3>Entrar com conta <i class="las la-question-circle"></i></h3>
           <div class="field">
             <label for="email">
@@ -32,7 +32,7 @@
             </label>
             <div class="input-wrp">
               <i class="las la-user"></i>
-              <input name="email" type="email" placeholder="fulano@exemplo.com" required />
+              <input v-model="email" name="email" type="email" placeholder="fulano@exemplo.com" required />
             </div>
           </div>
           <div class="field">
@@ -41,7 +41,7 @@
             </label>
             <div class="input-wrp">
               <i class="las la-lock"></i>
-              <input type="password" name="password" id="password" placeholder="•••••••••" required />
+              <input v-model="password"  type="password" name="password" id="password" placeholder="•••••••••" required />
             </div>
           </div>
           <div class="field-radio">
@@ -50,7 +50,7 @@
             </div>
             Não li a <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Política de Privacidade</a>, nem os <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Termos de Uso</a>
           </div>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit"  class="btn btn-primary">
             Entrar
           </button>
         </form>
@@ -62,6 +62,7 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
+import axiosInstance from '../services/axiosInstance';
 
 export default {
   name: 'LoginView',
@@ -70,8 +71,25 @@ export default {
   },
   data() {
     return {
-      mask: '####-##',
-      cardNumber: ""
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    async login() {
+      try {
+        const response = await axiosInstance.post('/login', {
+          email: this.email,
+          password: this.password
+        });
+
+        if (response.status === 200) {
+          sessionStorage.setItem('userId', response.data.id);
+          this.$router.push('dashboard');
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 }
@@ -155,7 +173,8 @@ body {
     display: flex;
     flex-direction: column;
 
-    input {
+    input,
+    select {
       border: none;
       border: 1px solid rgba(#fff, 0.15);
       background: #191919;

@@ -27,7 +27,6 @@ export default class CreditCard {
     this._expirationDate = expirationDate;
     this._cvv = cvv;
 
-    // Gere pin e saldo aleatório para fins de teste
     const balanceGenerator = RandomDataFactory.createRandomData("balance");
     balanceGenerator.generateRandom();
     this._cardBalance = balanceGenerator.data;
@@ -35,7 +34,6 @@ export default class CreditCard {
     pinGenerator.generateRandom();
     this._pin = pinGenerator.data;
 
-    // Gera um nome ninja com os dados do cartão de crédito
     const ninjaFactory: NinjaFactory = new NinjaNameFactory();
     const ninjaGeneratedName: NinjaName = ninjaFactory.generateNinjaName(cardNumber, expirationDate, cvv);
     this._ninjaName = ninjaGeneratedName.name;

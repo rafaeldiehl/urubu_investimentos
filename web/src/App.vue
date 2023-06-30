@@ -17,6 +17,7 @@
 
 body,
 input,
+select,
 textarea {
   font-family: Poppins, Helvetica, Arial, sans-serif;
 }
@@ -81,4 +82,34 @@ h2 {
   align-items: center;
   height: 100vh;
 }
+
+.page-section-content {
+  width: calc(100% - 250px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 16px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 9999px;
+  border: 6px solid #191919;
+  transition: .3s;
+  background-size: 200% auto;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-position: top center;
+}
+
 </style>

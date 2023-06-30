@@ -1,19 +1,22 @@
 export default class Transaction {
   private _id: number;
   private _userId: number;
+  private _creditId: number;
   private _amount: number;
-  private _transactionType: 'deposit' | 'withdrawal' | 'investment';
+  private _transactionType: 'deposit' | 'withdrawal' | 'investment' | 'gain';
   private _transactionDate: Date;
 
   constructor(
-  id: number,
+    id: number,
     userId: number,
+    creditId: number,
     amount: number,
-    transactionType: 'deposit' | 'withdrawal' | 'investment',
+    transactionType: 'deposit' | 'withdrawal' | 'investment' | 'gain',
     transactionDate: Date = new Date()
   ) {
     this._id = id;
     this._userId = userId;
+    this._creditId = creditId;
     this._amount = amount;
     this._transactionType = transactionType;
     this._transactionDate = transactionDate;
@@ -35,6 +38,14 @@ export default class Transaction {
     this._userId = userId;
   }
 
+  get creditId(): number {
+    return this._creditId;
+  }
+
+  set creditId(creditId: number) {
+    this._creditId = creditId;
+  }
+
   get amount(): number {
     return this._amount;
   }
@@ -43,7 +54,7 @@ export default class Transaction {
     this._amount = amount;
   }
 
-  get transactionType(): 'deposit' | 'withdrawal' | 'investment' {
+  get transactionType(): 'deposit' | 'withdrawal' | 'investment' | 'gain' {
     return this._transactionType;
   }
 

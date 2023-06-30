@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const DatabaseConnection_1 = __importDefault(require("../services/DatabaseConnection"));
 const User_1 = __importDefault(require("../models/User"));
 const CreditCard_1 = __importDefault(require("../models/CreditCard"));
+const Transaction_1 = __importDefault(require("../models/Transaction"));
 const db = DatabaseConnection_1.default.getInstance().getConnection();
 class UserRepository {
     async getAllUsers() {
@@ -54,6 +55,12 @@ class UserRepository {
         const [rows] = await connection.query('SELECT * FROM credit_cards WHERE user_id = ?', [userId]);
         const creditCards = rows.map((row) => new CreditCard_1.default(row.id, row.user_id, row.card_number, row.expiration_date, row.cvv));
         return creditCards;
+    }
+    async getUserTransactions(userId) {
+        const connection = await db;
+        const [rows] = await connection.query('SELECT * FROM investment_transactions WHERE user_id = ?', [userId]);
+        const transactions = rows.map((row) => new Transaction_1.default(row.id, row.user_id, row.card_credit_id, row.amount, row.transaction_type, row.transaction_date));
+        return transactions;
     }
 }
 exports.default = UserRepository;

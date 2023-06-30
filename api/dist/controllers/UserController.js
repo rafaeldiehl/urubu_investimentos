@@ -5,19 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const UserRepository_1 = __importDefault(require("../repositories/UserRepository"));
 const User_1 = __importDefault(require("../models/User"));
-const passport_1 = __importDefault(require("passport"));
 const userRepository = new UserRepository_1.default();
 class UserController {
-    login(req, res) {
-        passport_1.default.authenticate('local', (err, user, info) => {
-            if (err) {
-                res.status(500).json({ error: 'Erro ao realizar o login.' });
-                return;
-            }
-            if (!user) {
-                res.status(401).json({ error: info.message });
-                return;
-            }
+    async login(req, res) {
+        const { email, password } = req.body;
+        const user = await userRepository.getUserByEmail(email);
+        if (user && user.password === password) {
             const userDTO = {
                 id: user.id,
                 name: user.name,
@@ -25,7 +18,10 @@ class UserController {
                 investment_balance: user.investmentBalance,
             };
             res.json(userDTO);
-        })(req, res);
+        }
+        else {
+            res.status(401).json({ error: user });
+        }
     }
     async getAllUsers(req, res) {
         try {
@@ -106,12 +102,36 @@ class UserController {
                 user_id: creditCard.userId,
                 card_number: creditCard.cardNumber,
                 expiration_date: creditCard.expirationDate,
-                cvv: creditCard.cvv
+                cvv: creditCard.cvv,
+                card_balance: creditCard.cardBalance
             }));
             res.json(creditCardsDTO);
         }
         catch (error) {
             res.status(500).json({ error: 'Erro ao buscar cartões de crédito do usuário.' });
+        }
+    }
+    async getUserTransactions(req, res) {
+        try {
+            const userId = parseInt(req.params.id);
+            const user = await userRepository.getUserById(userId);
+            if (!user) {
+                res.status(404).json({ error: 'Usuário não encontrado.' });
+                return;
+            }
+            const transactions = await userRepository.getUserTransactions(userId);
+            const transactionsDTO = transactions.map(transaction => ({
+                id: transaction.id,
+                user_id: transaction.userId,
+                credit_id: transaction.creditId,
+                amount: transaction.amount,
+                transaction_type: transaction.transactionType,
+                transaction_date: transaction.transactionDate
+            }));
+            res.json(transactionsDTO);
+        }
+        catch (error) {
+            res.status(500).json({ error: 'Erro ao buscar transações do usuário.' });
         }
     }
 }

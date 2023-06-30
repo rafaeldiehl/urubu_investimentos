@@ -29,10 +29,12 @@ CREATE TABLE credit_cards (
 CREATE TABLE investment_transactions (
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
+  card_credit_id INT,
   amount DECIMAL(10, 2) NOT NULL,
-  transaction_type ENUM('deposit', 'withdrawal', 'investment') NOT NULL,
+  transaction_type ENUM('deposit', 'withdrawal', 'investment', 'gain') NOT NULL,
   transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (card_credit_id) REFERENCES credit_cards(id)
 );
 
 -- Populações como exemplo

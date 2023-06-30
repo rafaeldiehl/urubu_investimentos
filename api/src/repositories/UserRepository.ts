@@ -2,6 +2,7 @@ import { OkPacket, ResultSetHeader, RowDataPacket } from 'mysql2';
 import DatabaseConnection from '../services/DatabaseConnection';
 import User from '../models/User';
 import CreditCard from '../models/CreditCard';
+import Transaction from '../models/Transaction';
 
 const db = DatabaseConnection.getInstance().getConnection();
 
@@ -98,6 +99,18 @@ class UserRepository {
     );
   
     return creditCards;
+  }
+
+  public async getUserTransactions(userId: number): Promise<Transaction[]> {
+    const connection = await db;
+    const [rows] = await connection.query('SELECT * FROM investment_transactions WHERE user_id = ?', [userId]) as RowDataPacket[];
+  
+    const transactions: Transaction[] = rows.map(
+      (row: RowDataPacket) =>
+        new Transaction(row.id, row.user_id, row.card_credit_id, row.amount, row.transaction_type, row.transaction_date)
+    );
+  
+    return transactions;
   }
 }
 
